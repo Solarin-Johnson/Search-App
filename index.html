@@ -5,12 +5,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Engine</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="responsive.css">
 </head>
 <script src="news.js"></script>
 <script src="image.js"></script>
+<script src="main.js" defer></script>
+<script src="fa/all.js"></script>
 
 <body>
-
+    <div id="container">
+        <div id="head">
+            <div id="service">
+                <div>News</div>
+                <div>Image</div>
+            </div>
+            <div>
+                <select id="countriesDropdown">
+                    <option value="Nigeria">Nigeria</option>
+                    <option value="United States">United States</option>
+                    <option value="China">China</option>
+                    <option value="India">India</option>
+                    <option value="Brazil">Brazil</option>
+                    <option value="Russia">Russia</option>
+                    <option value="Japan">Japan</option>
+                    <option value="Germany">Germany</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="France">France</option>
+                    <option value="Italy">Italy</option>
+                </select>
+            </div>
+        </div>
+        <div id="body">
+            <div id="logo"></div>
+            <div id="search_field">
+                <div id="search_box">
+                    <div id="search_input">
+                        <input type="search" name="" id="">
+                    </div>
+                    <hr>
+                    <div id="search_icon">
+                        <span class="fas fa-search"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="suggestions">
+                <div>Headlines</div>
+                <div>BBC news</div>
+                <div>Football</div>
+                <div>Entertainment</div>
+                <div>BBC news</div>
+                <div>Basketball</div>
+                <div>Food</div>
+                <div>Entertainment</div>
+            </div>
+        </div>
+        <div id="footer"></div>
+    </div>
 </body>
 
 </html>

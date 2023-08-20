@@ -1,0 +1,23 @@
+@media screen and (max-width: 500px) {
+    #head {
+        font-size: 12px;
+    }
+
+    select {
+        font-size: 11px;
+        width: 70px;
+    }
+
+    #search_field {
+        grid-template-columns: 80%;
+    }
+
+    #search_input {
+        grid-template-columns: 95%;
+    }
+
+    #suggestions {
+        display: none;
+    }
+
+}
