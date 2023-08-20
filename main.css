@@ -10,7 +10,6 @@ body {
 
 #container {
     width: 500px;
-    max-height: 1000px;
     height: 100vh;
     min-height: 600px;
     display: grid;
@@ -64,11 +63,12 @@ option {
 
 #body {
     display: grid;
-    align-content: center;
+    margin-top: 100px;
     grid-template-rows: 100px 80px 200px;
     grid-template-columns: 1fr;
     justify-content: center;
     grid-gap: 20px;
+    background-color: #FBFFC0;
 }
 
 #logo {
@@ -132,21 +132,31 @@ option {
 #suggestions {
     display: grid;
     grid-template-rows: 40px 40px 40px 40px;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 10px;
     justify-self: center;
     max-width: 400px;
 }
 
-#suggestions :first-child {
-    grid-column: span 3;
+#suggestions :first-child,
+#suggestions :nth-child(9) {
+    grid-column: 1/4;
     display: grid;
-    justify-self: center;
+    justify-self: right;
+    width: 109.13px;
+}
+
+#suggestions :nth-child(2),
+#suggestions :last-child {
+    grid-column: 1/4;
+    display: grid;
+    justify-self: left;
+    grid-column: 4/7;
     width: 109.13px;
 }
 
 #suggestions div {
-    grid-column: span 1;
+    grid-column: span 2;
     color: #6B3F26;
     display: grid;
     padding: 5px;
@@ -158,9 +168,6 @@ option {
     cursor: pointer;
 }
 
-#suggestions :last-child {
-    grid-column: span 3;
-    display: grid;
-    justify-self: center;
-    width: 109.13px;
+#footer {
+    background-color: #FBFFC0;
 }

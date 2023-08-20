@@ -19,5 +19,10 @@
     #suggestions {
         display: none;
     }
+    
+    #body {
+        margin-top: 0;
+        align-self: center;
+    }
 
 }
