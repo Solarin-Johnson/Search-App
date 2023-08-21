@@ -13,6 +13,7 @@ var service = "news"
 
 document.getElementById("search_icon").addEventListener('click', () => {
     sessionStorage.setItem('search_news', document.getElementById('search_news').value)
+    window.open("news/news.html")
 })
 
 sessionStorage.setItem("search_news", "Hello World")

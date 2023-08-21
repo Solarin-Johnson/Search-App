@@ -26,7 +26,7 @@ body {
     justify-items: center;
     grid-template-rows: 50px;
     grid-gap: 20px;
-    grid-template-columns: 80px 1fr;
+    grid-template-columns: 10px 1fr;
 }
 
 #logo {
@@ -79,7 +79,8 @@ body {
 
 #search_results {
     display: grid;
-    grid-template-rows: 100px;
+    grid-template-rows: repeat(10, 100px);
+    grid-gap: 100px;
     grid-template-columns: 1fr;
 }
 
@@ -89,15 +90,13 @@ body {
     grid-template-columns: 400px;
 }
 
-.result div {
-    background-color: #1f1919;
-}
 
 .link {
     display: grid;
     grid-template-rows: 45px 30px;
     grid-template-columns: 400px;
     grid-gap: 5px;
+    font-family: cursive;
 }
 
 .link :first-child {
@@ -105,4 +104,54 @@ body {
     grid-template-rows: 15px 15px;
     grid-template-columns: 50px 1fr;
     grid-gap: 10px;
+}
+
+.link :first-child :first-child {
+    margin-left: 10px;
+    grid-row: span 2;
+    border-radius: 50%;
+    background-color: #6B3F26;
+    display: grid;
+    align-self: center;
+    justify-content: center;
+}
+
+.link :first-child :nth-child(2) {
+    font-size: 18px;
+}
+
+.link :first-child :nth-child(3) {
+    font-size: 12px;
+    margin-left: 3px;
+    font-weight: normal;
+}
+
+.link :last-child {
+    margin-left: 12px;
+    font-size: 22px;
+    color: #3c1d0c;
+}
+
+.description {
+    margin-left: 15px;
+    text-align: justify;
+    font-size: 11px;
+    font-family: cursive;
+}
+
+.img {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+#logo img {
+    border-radius: 50%;
+    width: 45px;
+    border: 5px solid #6B3F26;
+}
+
+#logo {
+    display: grid;
+    justify-self: start;
 }
