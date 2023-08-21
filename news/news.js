@@ -92,52 +92,43 @@ function displayResults(z, i, title, description, img, linkname, fullLink) {
     searchResultsDiv = document.getElementById("search_results")
     searchResultsDiv.style.gridTemplateRows = `Repeat(20, 100px)`
     document.getElementById("container").style.height = `${z * 210}px`
-    // Create a result container
     var resultDiv = document.createElement("div");
     resultDiv.className = "result";
     searchResultsDiv.appendChild(resultDiv);
 
-    // Create the link container
     var linkDiv = document.createElement("div");
     linkDiv.className = "link";
     resultDiv.appendChild(linkDiv);
 
-    // Create the head container
     var headDiv = document.createElement("div");
     headDiv.className = "head";
     linkDiv.appendChild(headDiv);
 
-    // Create the image container
     var imgDiv = document.createElement("div");
     imgDiv.className = "img";
     headDiv.appendChild(imgDiv);
     imgDiv.style.backgroundImage = `url(${img})`
 
-    // Create the name container
     var nameDiv = document.createElement("div");
     nameDiv.className = "name";
     nameDiv.textContent = linkname;
     headDiv.appendChild(nameDiv);
 
-    // Create the full link container
     var fullLinkDiv = document.createElement("div");
     fullLinkDiv.className = "full_link";
     fullLinkDiv.textContent = fullLink;
     headDiv.appendChild(fullLinkDiv);
 
-    // Create the title container
     var titleDiv = document.createElement("div");
     titleDiv.className = "title";
     titleDiv.textContent = title;
     linkDiv.appendChild(titleDiv);
 
-    // Create the description container
     var descriptionDiv = document.createElement("div");
     descriptionDiv.className = "description";
     descriptionDiv.textContent = description;
     resultDiv.appendChild(descriptionDiv);
 
-    // Append the result container to the search results container
     searchResultsDiv.appendChild(resultDiv);
 
 }

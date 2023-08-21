@@ -44,6 +44,8 @@ body {
     grid-template-columns: 1fr 10px 30px;
     grid-template-rows: 30px;
     align-content: center;
+    justify-content: center;
+    justify-self: end;
 }
 
 #search_box hr {
@@ -58,6 +60,7 @@ body {
     grid-template-columns: 295px;
     font-size: 20px;
     justify-content: center;
+    margin-left: 7px;
 }
 
 #search_input input {
