@@ -7,6 +7,12 @@ autosize = setInterval(() => {
 }, 1);
 var service = "news"
 
-document.getElementById("news").addEventListener("click", () => {
-    alert("hhdh")
+// document.getElementById("news").addEventListener("click", () => {
+//     alert("hhdh")
+// })
+
+document.getElementById("search_icon").addEventListener('click', () => {
+    sessionStorage.setItem('search_news', document.getElementById('search_news').value)
 })
+
+sessionStorage.setItem("search_news", "Hello World")
