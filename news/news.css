@@ -1,6 +1,5 @@
 body {
     display: grid;
-    width: 100%;
     background-color: #fff;
     margin: 0;
     height: 100vh;
@@ -14,13 +13,14 @@ body {
     min-height: 600px;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 100px 50px 1fr 70px;
+    grid-template-rows: 70px 70px 1fr 70px;
+    grid-gap: 10px;
     background-color: #FBFFC0;
     justify-items: center;
 }
 
 #search_field {
-    width: 450px;
+    width: 400px;
     display: grid;
     align-content: center;
     grid-template-rows: 50px;
@@ -80,9 +80,55 @@ body {
 
 #search_results {
     display: grid;
-    grid-gap: 70px;
+    grid-gap: 35px;
     grid-template-columns: 1fr;
 }
+
+
+#search_suggestions {
+    width: 400px;
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 30px;
+    justify-content: center;
+}
+
+#search_suggestions div {
+    height: 30px !important;
+}
+
+#search_suggestions :nth-child(3) {
+    font-size: 13px;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+}
+
+select,
+#search_suggestions div {
+    width: 90px;
+    height: 34px;
+    border-radius: 8px;
+    border: none;
+    font-family: cursive;
+    font-weight: bold;
+    text-align: center;
+    font-size: 16px;
+    background-color: #FBFFC0;
+    cursor: pointer;
+    justify-content: center;
+    border: 2px solid #6B3F26;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+}
+
+option {
+    font-size: 12px;
+    font-weight: bolder;
+}
+
 
 .result {
     display: grid;
@@ -91,12 +137,15 @@ body {
 }
 
 
+
+
 .link {
     display: grid;
     grid-template-rows: 45px 30px;
     grid-template-columns: 400px;
     grid-gap: 5px;
     font-family: cursive;
+    cursor: pointer;
 }
 
 .link :first-child {

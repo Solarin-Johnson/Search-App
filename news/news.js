@@ -7,6 +7,7 @@ if (sessionStorage.getItem("search_news") == null || sessionStorage.getItem("sea
 document.getElementById("search_icon").addEventListener('click', () => {
     sessionStorage.setItem('search_news', document.getElementById('search_news').value)
     searchq = search_news.replace(' ', '+');
+    sessionStorage.getItem("lang")
     searchResults(searchq)
     location.reload()
 })
@@ -48,9 +49,9 @@ function generateRandomNumbers(count, min, max) {
 
 
 
-function searchResults(searchq) {
+function searchResults(searchq, lang, sort) {
 
-    var url = `https://newsapi.org/v2/everything?q=${"ppp"}&apiKey=6b9e67153588468da8fcf037325a7033`
+    var url = `https://newsapi.org/v2/everything?q=${searchq}&language=en&apiKey=6b9e67153588468da8fcf037325a7033`
 
     var req = new Request(url);
 
@@ -70,11 +71,11 @@ function searchResults(searchq) {
                 //     z = data.articles.length
                 //     x = i
                 // }
-                var randomNumbers = generateRandomNumbers(z, 1, data.articles.length - 5);
+                var randomNumbers = generateRandomNumbers(z, 0, 30);
                 x = randomNumbers[i]
                 try {
 
-                    description = truncateString(data.articles[x].description, 130)
+                    description = truncateString(data.articles[x].description, 150)
                     title = truncateString(data.articles[x].title, 25)
                     img = data.articles[x].urlToImage
                     linkname = data.articles[x].source.name
@@ -85,7 +86,7 @@ function searchResults(searchq) {
                     console.error("Js caught :" + error.message)
                     z = z - 1
                 }
-                displayResults(z, length, title, description, img, linkname, fullLink)
+                displayResults(z, i, title, description, img, linkname, fullLink)
             }
         })
 }
@@ -96,7 +97,7 @@ function searchResults(searchq) {
 function displayResults(z, i, title, description, img, linkname, fullLink) {
 
     searchResultsDiv = document.getElementById("search_results")
-    searchResultsDiv.style.gridTemplateRows = `Repeat(20, 100px)`
+    searchResultsDiv.style.gridTemplateRows = `Repeat(20, 130px)`
     document.getElementById("container").style.height = `${z * 180}px`
     var resultDiv = document.createElement("div");
     resultDiv.className = "result";
@@ -136,10 +137,25 @@ function displayResults(z, i, title, description, img, linkname, fullLink) {
     resultDiv.appendChild(descriptionDiv);
 
     searchResultsDiv.appendChild(resultDiv);
-
+    document.querySelectorAll(".link")[i].addEventListener('click', () => {
+        location.assign(fullLink)
+    })
 }
 
 
 
+const suggest = document.querySelectorAll(".sort")
+suggest.forEach(function (element) {
+    element.addEventListener('click', () => {
 
+        for (let i = 0; i < 3; i++) {
+            suggest[i].style.backgroundColor = "#FBFFC0"
+            suggest[i].style.color = "#000"
+        }
+        element.style.backgroundColor = "#6B3F26"
+        element.style.color = "#FBFFC0"
 
+    })
+})
+suggest[0].style.backgroundColor = "#6B3F26"
+sessionStorage.set

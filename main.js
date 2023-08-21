@@ -31,4 +31,10 @@ document.getElementById("search_icon").addEventListener('click', () => {
     }
 })
 
+sessionStorage.setItem('lang', "NG")
+document.getElementById("countriesDropdown").addEventListener('focus', () => {
+    lang = document.getElementById("countriesDropdown").value
+    sessionStorage.setItem('lang', lang)
+})
+
 
