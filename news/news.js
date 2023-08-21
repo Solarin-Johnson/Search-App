@@ -1,4 +1,17 @@
 var search_news = sessionStorage.getItem('search_news')
+if (sessionStorage.getItem("search_news") == null || sessionStorage.getItem("search_news") == "") {
+    window.location.assign("../index.html")
+}
+
+
+document.getElementById("search_icon").addEventListener('click', () => {
+    sessionStorage.setItem('search_news', document.getElementById('search_news').value)
+    searchq = search_news.replace(' ', '+');
+    searchResults(searchq)
+    location.reload()
+})
+
+var search_news = sessionStorage.getItem('search_news')
 document.getElementById("search_news").value = search_news
 searchq = search_news.replace(' ', '+');
 searchResults(searchq)
@@ -12,14 +25,6 @@ function truncateString(text, maxLength) {
 }
 
 
-
-document.getElementById("search_icon").addEventListener('click', () => {
-    sessionStorage.setItem('search_news', document.getElementById('search_news').value)
-    search_news = sessionStorage.getItem('search_news')
-    searchq = search_news.replace(' ', '+');
-    searchResults(searchq)
-    location.reload()
-})
 
 
 function generateRandomNumbers(count, min, max) {
@@ -37,7 +42,6 @@ function generateRandomNumbers(count, min, max) {
 
     return randomNumbers;
 }
-var randomNumbers = generateRandomNumbers(20, 1, 99);
 
 
 
@@ -46,7 +50,7 @@ var randomNumbers = generateRandomNumbers(20, 1, 99);
 
 function searchResults(searchq) {
 
-    var url = `https://newsapi.org/v2/everything?q=${searchq}&apiKey=2d7c6244f680461b8f59d3c4641bc200`
+    var url = `https://newsapi.org/v2/everything?q=${"ppp"}&apiKey=6b9e67153588468da8fcf037325a7033`
 
     var req = new Request(url);
 
@@ -59,21 +63,23 @@ function searchResults(searchq) {
                 z = data.articles.length
             }
             for (i = 0; i < z; i++) {
-                if (data.articles.length > 20) {
-                    z = 20
-                    x = randomNumbers[i]
-                } else {
-                    z = data.articles.length
-                    x = i
-                }
+                // if (data.articles.length > 20) {
+                //     z = 20
+                //     x = randomNumbers[i]
+                // } else {
+                //     z = data.articles.length
+                //     x = i
+                // }
+                var randomNumbers = generateRandomNumbers(z, 1, data.articles.length - 5);
+                x = randomNumbers[i]
                 try {
 
-                    description = truncateString(data.articles[x].description, 150)
+                    description = truncateString(data.articles[x].description, 130)
                     title = truncateString(data.articles[x].title, 25)
                     img = data.articles[x].urlToImage
                     linkname = data.articles[x].source.name
                     fullLink = truncateString(data.articles[x].url, 30)
-                    length = data.articles.length - 50
+                    length = data.articles.length - 5
                     console.log(linkname)
                 } catch (error) {
                     console.error("Js caught :" + error.message)
@@ -91,7 +97,7 @@ function displayResults(z, i, title, description, img, linkname, fullLink) {
 
     searchResultsDiv = document.getElementById("search_results")
     searchResultsDiv.style.gridTemplateRows = `Repeat(20, 100px)`
-    document.getElementById("container").style.height = `${z * 210}px`
+    document.getElementById("container").style.height = `${z * 180}px`
     var resultDiv = document.createElement("div");
     resultDiv.className = "result";
     searchResultsDiv.appendChild(resultDiv);
