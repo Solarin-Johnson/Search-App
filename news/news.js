@@ -176,3 +176,11 @@ suggest.forEach(function (element) {
 })
 suggest[0].style.backgroundColor = "#6B3F26"
 suggest[0].style.color = "#FBFFC0"
+
+var sorts = ["Popularity", "Most Relevant", "Latest"]
+window.onload(
+    // if(sort = sort[0]){
+
+    // }
+
+)
