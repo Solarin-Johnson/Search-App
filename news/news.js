@@ -1,3 +1,20 @@
+
+function sorts() {
+    for (i = 0; i < 3; i++) {
+        sorts = ["Popularity", "Most Relevant", "Latest"]
+        sortss = ["popularity", "relevancy", "publishedAt"]
+        sort = sessionStorage.getItem("sort")
+        const suggest = document.querySelectorAll(".sort")
+        if (sort == sortss[i]) {
+            suggest[i].style.backgroundColor = "#6B3F26"
+            suggest[i].style.color = "#FBFFC0"
+        }
+    }
+}
+
+sorts()
+
+
 var search_news = sessionStorage.getItem('search_news')
 if (sessionStorage.getItem("search_news") == null || sessionStorage.getItem("search_news") == "") {
     window.location.assign("../index.html")
@@ -51,6 +68,7 @@ function generateRandomNumbers(count, min, max) {
 
 
 function searchResults(searchq, lang, sort) {
+    sort = sessionStorage.getItem("sort")
     var url = `https://newsapi.org/v2/everything?q=${searchq}&language=en&sortBy=${sort}&apiKey=722cb657219e42c1a710a24d19d48188`
     var req = new Request(url);
 
@@ -63,33 +81,50 @@ function searchResults(searchq, lang, sort) {
                 var randomNumbers = generateRandomNumbers(z, 0, z);
             } else {
                 z = data.articles.length
-                var randomNumbers = generateRandomNumbers(z, 0, 100);
+                var randomNumbers = generateRandomNumbers(z, 0, z);
             }
-            for (i = 0; i < z; i++) {
-                // if (data.articles.length > 20) {
-                //     z = 20
-                //     x = randomNumbers[i]
-                // } else {
-                //     z = data.articles.length
-                //     x = i
-                // }
-                x = randomNumbers[i]
-                try {
+            sessionStorage.setItem("z", randomNumbers)
+        }
 
-                    description = truncateString(data.articles[x].description, 150)
-                    title = truncateString(data.articles[x].title, 25)
-                    img = data.articles[x].urlToImage
-                    linkname = truncateString(data.articles[x].source.name, 20)
-                    fullLink = truncateString(data.articles[x].url, 30)
-                    length = data.articles.length - 5
-                    console.log(linkname)
-                } catch (error) {
-                    console.error("Js caught :" + error.message)
-                    z = z - 1
-                }
-                displayResults(z, i, title, description, img, linkname, fullLink)
-            }
-        })
+    }
+for (i = 0; i < z; i++) {
+    console.log("kk")
+    if (sessionStorage.getItem("z") == null) {
+        if (data.articles.length > 20) {
+            z = 20
+            var randomNumbers = generateRandomNumbers(z, 0, z);
+        } else {
+            z = data.articles.length
+            var randomNumbers = generateRandomNumbers(z, 0, z);
+        }
+        sessionStorage.setItem("z", randomNumbers)
+    } else {
+        var z = sessionStorage.getItem("z")
+        var randomNumbers = generateRandomNumbers(z, 0, z);
+    }
+    var x = randomNumbers
+    // if (data.articles.length > 20) {
+    //     z = 20
+    //     x = randomNumbers[i]
+    // } else {
+    //     z = data.articles.length
+    //     x = i
+    // }
+    try {
+        description = truncateString(data.articles[x].description, 300)
+        title = truncateString(data.articles[x].title, 25)
+        img = data.articles[x].urlToImage
+        linkname = truncateString(data.articles[x].source.name, 20)
+        fullLink = truncateString(data.articles[x].url, 30)
+        length = data.articles.length - 5
+        console.log(linkname)
+    } catch (error) {
+        console.error("Js caught :" + error.message)
+        z = z - 1
+    }
+    displayResults(z, i, title, description, img, linkname, fullLink)
+}
+})
 }
 
 
@@ -99,7 +134,7 @@ function displayResults(z, i, title, description, img, linkname, fullLink) {
 
     searchResultsDiv = document.getElementById("search_results")
     searchResultsDiv.style.gridTemplateRows = `Repeat(20, 130px)`
-    document.getElementById("container").style.height = `${z * 180}px`
+    document.getElementById("container").style.height = `${(z + 1) * 165}px`
     var resultDiv = document.createElement("div");
     resultDiv.className = "result";
     searchResultsDiv.appendChild(resultDiv);
@@ -145,7 +180,6 @@ function displayResults(z, i, title, description, img, linkname, fullLink) {
 
 
 
-var sort = "popularity"
 sessionStorage.setItem("sort", sort)
 const suggest = document.querySelectorAll(".sort")
 suggest.forEach(function (element) {
@@ -155,6 +189,7 @@ suggest.forEach(function (element) {
             sorts = ["Popularity", "Most Relevant", "Latest"]
             suggest[i].style.backgroundColor = "#FBFFC0"
             suggest[i].style.color = "#000"
+            location.reload()
         }
         if (element.textContent == sorts[0]) {
             sort = "popularity"
@@ -163,7 +198,7 @@ suggest.forEach(function (element) {
             sort = "relevancy"
         }
         if (element.textContent == sorts[2]) {
-            sort = "publishdeAt"
+            sort = "publishedAt"
         }
 
 
@@ -174,13 +209,4 @@ suggest.forEach(function (element) {
 
 
 })
-suggest[0].style.backgroundColor = "#6B3F26"
-suggest[0].style.color = "#FBFFC0"
 
-var sorts = ["Popularity", "Most Relevant", "Latest"]
-window.onload(
-    // if(sort = sort[0]){
-
-    // }
-
-)

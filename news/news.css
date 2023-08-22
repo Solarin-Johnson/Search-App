@@ -8,25 +8,26 @@ body {
 }
 
 #container {
-    width: 500px;
+    width: 550px;
     height: 100vh;
     min-height: 600px;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 450px;
     grid-template-rows: 70px 70px 1fr 70px;
     grid-gap: 10px;
     background-color: #FBFFC0;
-    justify-items: center;
+    justify-content: center;
 }
 
 #search_field {
-    width: 400px;
+    width: 450px;
     display: grid;
     align-content: center;
     grid-template-rows: 50px;
     grid-gap: 20px;
     grid-template-columns: 50px 1fr;
     justify-content: space-evenly;
+    justify-self: center;
 }
 
 #logo {
@@ -81,12 +82,15 @@ body {
 #search_results {
     display: grid;
     grid-gap: 35px;
-    grid-template-columns: 1fr;
+    grid-template-columns: 450px;
+    justify-self: center;
+
 }
 
 
 #search_suggestions {
-    width: 400px;
+    justify-self: center;
+    width: 450px;
     display: grid;
     grid-gap: 5px;
     grid-template-columns: repeat(4, 1fr);
@@ -105,9 +109,19 @@ body {
     justify-content: center;
 }
 
-select,
+select {
+    background-color: #FBFFC0;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    width: 70px;
+    font-weight: bold;
+    color: #6B3F26;
+    font-family: cursive;
+    cursor: pointer;
+}
+
 #search_suggestions div {
-    width: 90px;
     height: 34px;
     border-radius: 8px;
     border: none;
@@ -133,7 +147,7 @@ option {
 .result {
     display: grid;
     grid-template-rows: 80px 80px;
-    grid-template-columns: 400px;
+    grid-template-columns: 450px;
 }
 
 
