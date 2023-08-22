@@ -102,13 +102,7 @@ function searchResults(searchq, lang, sort) {
                     var randomNumbers = generateRandomNumbers(z, 0, z);
                 }
                 var x = randomNumbers
-                // if (data.articles.length > 20) {
-                //     z = 20
-                //     x = randomNumbers[i]
-                // } else {
-                //     z = data.articles.length
-                //     x = i
-                // }
+
                 try {
                     description = truncateString(data.articles[x].description, 300)
                     title = truncateString(data.articles[x].title, 25)
