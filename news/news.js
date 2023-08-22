@@ -3,19 +3,20 @@ if (sessionStorage.getItem("search_news") == null || sessionStorage.getItem("sea
     window.location.assign("../index.html")
 }
 
-
 document.getElementById("search_icon").addEventListener('click', () => {
     sessionStorage.setItem('search_news', document.getElementById('search_news').value)
     searchq = search_news.replace(' ', '+');
-    sessionStorage.getItem("lang")
-    searchResults(searchq)
+    sort = sessionStorage.getItem("sort")
+    lang = sessionStorage.getItem("lang")
+    searchResults(searchq, lang, sort)
     location.reload()
 })
-
+sort = sessionStorage.getItem("sort")
+lang = sessionStorage.getItem("lang")
 var search_news = sessionStorage.getItem('search_news')
 document.getElementById("search_news").value = search_news
 searchq = search_news.replace(' ', '+');
-searchResults(searchq)
+searchResults(searchq, lang, sort)
 
 function truncateString(text, maxLength) {
     if (text.length <= maxLength) {
@@ -50,18 +51,19 @@ function generateRandomNumbers(count, min, max) {
 
 
 function searchResults(searchq, lang, sort) {
-
-    var url = `https://newsapi.org/v2/everything?q=${searchq}&language=en&apiKey=6b9e67153588468da8fcf037325a7033`
-
+    var url = `https://newsapi.org/v2/everything?q=${searchq}&language=en&sortBy=${sort}&apiKey=722cb657219e42c1a710a24d19d48188`
     var req = new Request(url);
 
     fetch(req)
         .then(response => response.json())
         .then(data => {
+            console.log(data)
             if (data.articles.length > 20) {
                 z = 20
+                var randomNumbers = generateRandomNumbers(z, 0, z);
             } else {
                 z = data.articles.length
+                var randomNumbers = generateRandomNumbers(z, 0, 100);
             }
             for (i = 0; i < z; i++) {
                 // if (data.articles.length > 20) {
@@ -71,14 +73,13 @@ function searchResults(searchq, lang, sort) {
                 //     z = data.articles.length
                 //     x = i
                 // }
-                var randomNumbers = generateRandomNumbers(z, 0, 30);
                 x = randomNumbers[i]
                 try {
 
                     description = truncateString(data.articles[x].description, 150)
                     title = truncateString(data.articles[x].title, 25)
                     img = data.articles[x].urlToImage
-                    linkname = data.articles[x].source.name
+                    linkname = truncateString(data.articles[x].source.name, 20)
                     fullLink = truncateString(data.articles[x].url, 30)
                     length = data.articles.length - 5
                     console.log(linkname)
@@ -144,18 +145,34 @@ function displayResults(z, i, title, description, img, linkname, fullLink) {
 
 
 
+var sort = "popularity"
+sessionStorage.setItem("sort", sort)
 const suggest = document.querySelectorAll(".sort")
 suggest.forEach(function (element) {
     element.addEventListener('click', () => {
 
         for (let i = 0; i < 3; i++) {
+            sorts = ["Popularity", "Most Relevant", "Latest"]
             suggest[i].style.backgroundColor = "#FBFFC0"
             suggest[i].style.color = "#000"
         }
+        if (element.textContent == sorts[0]) {
+            sort = "popularity"
+        }
+        if (element.textContent == sorts[1]) {
+            sort = "relevancy"
+        }
+        if (element.textContent == sorts[2]) {
+            sort = "publishdeAt"
+        }
+
+
         element.style.backgroundColor = "#6B3F26"
         element.style.color = "#FBFFC0"
-
+        sessionStorage.setItem("sort", sort)
     })
+
+
 })
 suggest[0].style.backgroundColor = "#6B3F26"
-sessionStorage.set
+suggest[0].style.color = "#FBFFC0"
