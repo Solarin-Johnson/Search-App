@@ -75,7 +75,7 @@ function searchResults(searchq, lang, sort) {
     fetch(req)
         .then(response => response.json())
         .then(data => {
-            console.log(data.articles)
+            console.log(data)
             if (data.articles.length > 20) {
                 z = 20
                 var randomNumbers = generateRandomNumbers(z, 0, z);
@@ -83,11 +83,25 @@ function searchResults(searchq, lang, sort) {
                 z = data.articles.length
                 var randomNumbers = generateRandomNumbers(z, 0, z);
             }
+            sessionStorage.setItem("z", randomNumbers)
 
 
 
             for (i = 0; i < z; i++) {
-                var x = randomNumbers[i]
+                if (sessionStorage.getItem("z") == null) {
+                    if (data.articles.length > 20) {
+                        z = 20
+                        var randomNumbers = generateRandomNumbers(z, 0, z);
+                    } else {
+                        z = data.articles.length
+                        var randomNumbers = generateRandomNumbers(z, 0, z);
+                    }
+                    sessionStorage.setItem("z", randomNumbers)
+                } else {
+                    var z = sessionStorage.getItem("z")
+                    var randomNumbers = generateRandomNumbers(z, 0, z);
+                }
+                var x = randomNumbers
 
                 try {
                     description = truncateString(data.articles[x].description, 300)
@@ -112,7 +126,7 @@ function searchResults(searchq, lang, sort) {
 function displayResults(z, i, title, description, img, linkname, fullLink) {
 
     searchResultsDiv = document.getElementById("search_results")
-    searchResultsDiv.style.gridTemplateRows = `Repeat(${z}, 130px)`
+    searchResultsDiv.style.gridTemplateRows = `Repeat(20, 130px)`
     document.getElementById("container").style.height = `${(z + 1) * 165}px`
     var resultDiv = document.createElement("div");
     resultDiv.className = "result";
