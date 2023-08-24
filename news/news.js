@@ -69,19 +69,18 @@ function generateRandomNumbers(count, min, max) {
 
 function searchResults(searchq, lang, sort) {
     sort = sessionStorage.getItem("sort")
-    var url = `https://newsapi.org/v2/everything?q=${searchq}&language=en&sortBy=${sort}&apiKey=722cb657219e42c1a710a24d19d48188`
+    var url = `https://newsapi.org/v2/everything?q=${searchq}&language=en&sortBy=${sort}&apiKey=922ce45ff66f407a9f3ff524cd6e75f5`
     var req = new Request(url);
 
     fetch(req)
         .then(response => response.json())
         .then(data => {
-            console.log(data.articles)
             if (data.articles.length > 20) {
                 z = 20
                 var randomNumbers = generateRandomNumbers(z, 0, z);
             } else {
                 z = data.articles.length
-                var randomNumbers = generateRandomNumbers(z, 0, z);
+                var randomNumbers = generateRandomNumbers(z, 0, z - 1);
             }
 
 
@@ -96,7 +95,6 @@ function searchResults(searchq, lang, sort) {
                     linkname = truncateString(data.articles[x].source.name, 20)
                     fullLink = truncateString(data.articles[x].url, 30)
                     length = data.articles.length - 5
-                    console.log(linkname)
                 } catch (error) {
                     console.error("Js caught :" + error.message)
                     z = z - 1
@@ -113,7 +111,7 @@ function displayResults(z, i, title, description, img, linkname, fullLink) {
 
     searchResultsDiv = document.getElementById("search_results")
     searchResultsDiv.style.gridTemplateRows = `Repeat(${z}, 130px)`
-    document.getElementById("container").style.height = `${(z + 1) * 165}px`
+    document.getElementById("container").style.height = `${((z + 1) * 165) + 70}px`
     var resultDiv = document.createElement("div");
     resultDiv.className = "result";
     searchResultsDiv.appendChild(resultDiv);

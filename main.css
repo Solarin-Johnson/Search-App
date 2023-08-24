@@ -34,7 +34,7 @@ body {
 #service {
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: 100px 100px;
+    grid-template-columns: 80px 80px;
     justify-content: start;
     margin-left: 20px;
     text-align: left;

@@ -84,7 +84,7 @@ body {
     grid-gap: 35px;
     grid-template-columns: 450px;
     justify-self: center;
-
+    background-color: #FBFFC0;
 }
 
 
