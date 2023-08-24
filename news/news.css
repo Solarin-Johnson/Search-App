@@ -5,6 +5,7 @@ body {
     height: 100vh;
     min-height: 600px;
     justify-content: center;
+    width: 500px;
 }
 
 #container {
