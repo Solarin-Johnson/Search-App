@@ -70,6 +70,10 @@ function generateRandomNumbers(count, min, max) {
 
 function searchResults(searchq, lang, sort) {
     sort = sessionStorage.getItem("sort")
+    search_news = sessionStorage.getItem('search_news')
+    if (search_news == 'headline') {
+        console.log("yes")
+    }
     var url = `https://newsapi.org/v2/everything?q=${searchq}&language=en&sortBy=${sort}&apiKey=922ce45ff66f407a9f3ff524cd6e75f5`
     var req = new Request(url);
 
@@ -188,3 +192,11 @@ suggest.forEach(function (element) {
 
 })
 
+checkFilter = setTimeout(() => {
+
+}, 1);
+filter = document.getElementById("filter")
+filter.addEventListener('change', () => {
+    sessionStorage.setItem('search_news', filter.value)
+    location.reload()
+})
