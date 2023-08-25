@@ -1,7 +1,10 @@
+html,
 body {
     display: grid;
     background-color: #fff;
+    width: 550px;
     margin: 0;
+    padding: 0;
     height: 100vh;
     min-height: 600px;
     justify-content: center;
@@ -132,7 +135,7 @@ select {
     font-family: cursive;
     font-weight: bold;
     text-align: center;
-    font-size: 16px;
+    font-size: 13px;
     background-color: #FBFFC0;
     cursor: pointer;
     justify-content: center;
