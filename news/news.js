@@ -82,7 +82,6 @@ function searchResults(searchq, lang, sort) {
     //     console.log("yes")
     // }
     var url = `https://newsapi.org/v2/everything?q=${searchq}&language=en&sortBy=${sort}&apiKey=922ce45ff66f407a9f3ff524cd6e75f5`
-    window.open(url)
     var req = new Request(url);
 
     fetch(req)
@@ -200,12 +199,12 @@ suggest.forEach(function (element) {
 
 })
 
-checkFilter = setTimeout(() => {
+// checkFilter = setTimeout(() => {
 
-}, 1);
-filter = document.getElementById("filter")
-filter.addEventListener('change', () => {
-    sessionStorage.setItem('search_news', filter.value)
-    location.reload()
-})
+// }, 1);
+// filter = document.getElementById("filter")
+// filter.addEventListener('change', () => {
+//     sessionStorage.setItem('search_news', filter.value)
+//     location.reload()
+// })
 

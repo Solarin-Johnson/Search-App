@@ -1,3 +1,11 @@
+autosize = setInterval(() => {
+
+    if (innerWidth < 500) {
+        document.getElementById("container").style.width = `${innerWidth - 0.2}px`
+    } else {
+        document.getElementById("container").style.width = "500px"
+    }
+}, 1);
 
 function sorts() {
     for (i = 0; i < 3; i++) {
@@ -15,10 +23,6 @@ function sorts() {
 sorts()
 
 
-var search_news = sessionStorage.getItem('search_news')
-if (sessionStorage.getItem("search_news") == null || sessionStorage.getItem("search_news") == "") {
-    window.location.assign("../index.html")
-}
 
 document.getElementById("search_icon").addEventListener('click', () => {
     sessionStorage.setItem('search_news', document.getElementById('search_news').value)
@@ -30,9 +34,8 @@ document.getElementById("search_icon").addEventListener('click', () => {
 })
 sort = sessionStorage.getItem("sort")
 lang = sessionStorage.getItem("lang")
-var search_news = sessionStorage.getItem('search_news')
-document.getElementById("search_news").value = search_news
-searchq = search_news.replace(' ', '+');
+var headline = sessionStorage.getItem('headline')
+searchq = headline.replace(' ', '+');
 searchResults(searchq, lang, sort)
 
 function truncateString(text, maxLength) {
@@ -69,48 +72,43 @@ function generateRandomNumbers(count, min, max) {
 
 function searchResults(searchq, lang, sort) {
     sort = sessionStorage.getItem("sort")
-    var url = `https://newsapi.org/v2/everything?q=${searchq}&language=en&sortBy=${sort}&apiKey=722cb657219e42c1a710a24d19d48188`
+    search_news = sessionStorage.getItem('search_news')
+    // if (search_news == 'headline') {
+    //     console.log("yes")
+    // }
+
+    var search_news = sessionStorage.getItem('search_news')
+    if (sessionStorage.getItem("headline") == null || sessionStorage.getItem("headline") == "headline") {
+        var url = `https://newsapi.org/v2/top-headlines?country=NG&apiKey=ca149d94ec5f47d48a80f0844ca39eba`
+        console.log(url)
+    } else {
+        var url = `https://newsapi.org/v2/everything?q=${searchq}&language=en&sortBy=${sort}&apiKey=922ce45ff66f407a9f3ff524cd6e75f5`
+    }
     var req = new Request(url);
 
     fetch(req)
         .then(response => response.json())
         .then(data => {
-            console.log(data)
             if (data.articles.length > 20) {
                 z = 20
                 var randomNumbers = generateRandomNumbers(z, 0, z);
             } else {
                 z = data.articles.length
-                var randomNumbers = generateRandomNumbers(z, 0, z);
+                var randomNumbers = generateRandomNumbers(z, 0, z - 1);
             }
-            sessionStorage.setItem("z", randomNumbers)
 
 
 
             for (i = 0; i < z; i++) {
-                if (sessionStorage.getItem("z") == null) {
-                    if (data.articles.length > 20) {
-                        z = 20
-                        var randomNumbers = generateRandomNumbers(z, 0, z);
-                    } else {
-                        z = data.articles.length
-                        var randomNumbers = generateRandomNumbers(z, 0, z);
-                    }
-                    sessionStorage.setItem("z", randomNumbers)
-                } else {
-                    var z = sessionStorage.getItem("z")
-                    var randomNumbers = generateRandomNumbers(z, 0, z);
-                }
-                var x = randomNumbers
+                var x = randomNumbers[i]
 
                 try {
-                    description = truncateString(data.articles[x].description, 300)
+                    // description = truncateString(data.articles[x].description, 300)
                     title = truncateString(data.articles[x].title, 25)
-                    img = data.articles[x].urlToImage
+                    // img = data.articles[x].urlToImage
                     linkname = truncateString(data.articles[x].source.name, 20)
                     fullLink = truncateString(data.articles[x].url, 30)
-                    length = data.articles.length - 5
-                    console.log(linkname)
+                    // length = data.articles.length - 5
                 } catch (error) {
                     console.error("Js caught :" + error.message)
                     z = z - 1
@@ -126,8 +124,8 @@ function searchResults(searchq, lang, sort) {
 function displayResults(z, i, title, description, img, linkname, fullLink) {
 
     searchResultsDiv = document.getElementById("search_results")
-    searchResultsDiv.style.gridTemplateRows = `Repeat(20, 130px)`
-    document.getElementById("container").style.height = `${(z + 1) * 165}px`
+    searchResultsDiv.style.gridTemplateRows = `Repeat(${z}, 130px)`
+    document.getElementById("container").style.height = `${((z + 1) * 165) + 70}px`
     var resultDiv = document.createElement("div");
     resultDiv.className = "result";
     searchResultsDiv.appendChild(resultDiv);
@@ -202,4 +200,13 @@ suggest.forEach(function (element) {
 
 
 })
+
+// checkFilter = setTimeout(() => {
+
+// }, 1);
+// filter = document.getElementById("filter")
+// filter.addEventListener('change', () => {
+//     sessionStorage.setItem('search_news', filter.value)
+//     location.reload()
+// })
 

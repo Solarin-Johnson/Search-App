@@ -38,4 +38,6 @@ document.getElementById("countriesDropdown").addEventListener('focus', () => {
     sessionStorage.setItem('lang', lang)
 })
 
-
+document.querySelectorAll(".headlines")[0].addEventListener('click', () => {
+    location.assign('headline/headline.html')
+})
