@@ -7,6 +7,21 @@ autosize = setInterval(() => {
     }
 }, 1);
 
+function sorts() {
+    for (i = 0; i < 3; i++) {
+        sorts = ["Popularity", "Most Relevant", "Latest"]
+        sortss = ["popularity", "relevancy", "publishedAt"]
+        sort = sessionStorage.getItem("sort")
+        const suggest = document.querySelectorAll(".sort")
+        if (sort == sortss[i]) {
+            suggest[i].style.backgroundColor = "#6B3F26"
+            suggest[i].style.color = "#FBFFC0"
+        }
+    }
+}
+
+sorts()
+
 
 var search_news = sessionStorage.getItem('search_news')
 if (sessionStorage.getItem("search_news") == null || sessionStorage.getItem("search_news") == "") {
@@ -16,6 +31,7 @@ if (sessionStorage.getItem("search_news") == null || sessionStorage.getItem("sea
 document.getElementById("search_icon").addEventListener('click', () => {
     sessionStorage.setItem('search_news', document.getElementById('search_news').value)
     searchq = search_news.replace(' ', '+');
+    sort = sessionStorage.getItem("sort")
     lang = sessionStorage.getItem("lang")
     searchResults(searchq, lang, sort)
     location.reload()
@@ -65,9 +81,6 @@ function searchResults(searchq, lang, sort) {
     // if (search_news == 'headline') {
     //     console.log("yes")
     // }
-    if (search_news == 'headline') {
-        console.log("yes")
-    }
     var url = `https://newsapi.org/v2/everything?q=${searchq}&language=en&sortBy=${sort}&apiKey=922ce45ff66f407a9f3ff524cd6e75f5`
     var req = new Request(url);
 
@@ -195,12 +208,3 @@ suggest.forEach(function (element) {
 //     location.reload()
 // })
 
-
-checkFilter = setTimeout(() => {
-
-}, 1);
-filter = document.getElementById("filter")
-filter.addEventListener('change', () => {
-    sessionStorage.setItem('search_news', filter.value)
-    location.reload()
-})

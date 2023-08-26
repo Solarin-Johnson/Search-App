@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="resposive.css">
 </head>
 <script src="../fa/all.js"></script>
-<script src="headline.js" defer></script>
 
 <body>
     <div id="container">
@@ -20,7 +19,7 @@
             </div>
             <div id="search_box">
                 <div id="search_input">
-                    <input type="search" name="" id="headline" value="Headline">
+                    <input type="search" name="" id="headline" disabled value="Headline">
                 </div>
                 <hr>
                 <div id="search_icon">
@@ -30,32 +29,56 @@
         </div>
         <div id="search_suggestions">
             <div>
-                <select name="" id="">
-                    <option value="">All</option>
-                    <option value="">BBC</option>
-                    <option value=""></option>
-                    <option value=""></option>
-                    <option value=""></option>
+                <select id="languageSelect">
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                    <option value="zh">Chinese</option>
+                    <option value="hi">Hindi</option>
+                    <option value="ar">Arabic</option>
+                    <option value="fr">French</option>
+                    <option value="ru">Russian</option>
+                    <option value="pt">Portuguese</option>
+                    <option value="bn">Bengali</option>
+                    <option value="de">German</option>
                 </select>
+
             </div>
-            <div class="sort" id="popularity">Popularity</div>
-            <div class="sort" id="relevancy">Most Relevant</div>
-            <div class="sort" id="publishedAt">Latest</div>
+            <div class="sort" id="popularity"> 
+                <select id="countrySelect">
+                    <option value="US">United States</option>
+                    <option value="ES">Spain</option>
+                    <option value="CN">China</option>
+                    <option value="IN">India</option>
+                    <option value="SA">Saudi Arabia</option>
+                    <option value="FR">France</option>
+                    <option value="RU">Russia</option>
+                    <option value="BR">Brazil</option>
+                    <option value="BD">Bangladesh</option>
+                    <option value="DE">Germany</option>
+                  </select>
+            </div>
+            <div class="sort" id="relevancy">
+                <select id="category">
+                    <option value="business">Business</option>
+                    <option value="entertainment">Entertainment</option>
+                    <option value="general">General</option>
+                    <option value="health">Health</option>
+                    <option value="science">Science</option>
+                    <option value="sports">Sports</option>
+                    <option value="technology">Technology</option>
+                  </select>
+                  
+            </div>
 
         </div>
         <div id="search_results">
-            <div id="results">
-                <div class="title">FCTA refutes reports of mass demolition in Abuja - Daily Post </div>
-                <div class="foot">
-                    <div class="name">myguess.com</div>
-                    <div class="date">24-05-07</div>
-                </div>
-            </div>
+
         </div>
         <div id="footer">
 
         </div>
     </div>
+    <script src="headline.js"></script>
 </body>
 
 </html>

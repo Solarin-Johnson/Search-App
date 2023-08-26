@@ -2,7 +2,7 @@ html,
 body {
     display: grid;
     background-color: #fff;
-    width: 550px;
+    width: 100%;
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -97,8 +97,8 @@ body {
     justify-self: center;
     width: 450px;
     display: grid;
-    grid-gap: 5px;
-    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 30px;
+    grid-template-columns: 2fr 3fr 2fr;
     grid-template-rows: 30px;
     justify-content: center;
 }
@@ -107,12 +107,6 @@ body {
     height: 30px !important;
 }
 
-#search_suggestions :nth-child(3) {
-    font-size: 13px;
-    display: grid;
-    align-content: center;
-    justify-content: center;
-}
 
 select {
     background-color: #FBFFC0;
@@ -154,7 +148,6 @@ option {
     display: grid;
     grid-gap: 35px;
     grid-template-columns: 450px;
-    grid-template-rows: 120px;
     justify-self: center;
     background-color: #FBFFC0;
 }
@@ -175,7 +168,7 @@ option {
 .foot {
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: 350px 100px;
+    grid-template-columns: 330px 120px;
     margin: 5px 15px 0px 15px;
     /* background: #000; */
 }
@@ -184,6 +177,7 @@ option {
     font-size: 20px;
     margin: 5px 15px;
     font-weight: bold;
+    text-align: justify;
     /* background-color: #6B3F26; */
 }
 
