@@ -6,21 +6,26 @@ autosize = setInterval(() => {
         document.getElementById("container").style.width = "500px"
     }
 }, 1);
+
 setDefault()
 function setDefault() {
-    lang = document.getElementById('languageSelect').value
     cntry = document.getElementById('countrySelect').value
     ctgry = document.getElementById('category').value
 
-    sessionStorage.setItem('lang', lang)
-    sessionStorage.setItem('country', cntry)
-    sessionStorage.setItem('category', ctgry)
+    if (sessionStorage.getItem('country') == null || sessionStorage.getItem('category') == null || sessionStorage.getItem('lang') == '' || sessionStorage.getItem('category') == '') {
+        sessionStorage.setItem('country', cntry)
+        cntry = sessionStorage.getItem('country')
+        sessionStorage.setItem('category', ctgry)
+        ctgr = sessionStorage.getItem('ctgry')
+    } else {
+        document.getElementById('countrySelect').value = sessionStorage.getItem('country')
+        document.getElementById('category').value = sessionStorage.getItem('category')
+    }
 
-    language = sessionStorage.getItem('lang')
     country = sessionStorage.getItem('country')
     category = sessionStorage.getItem('category')
 
-    searchResults(lang, country, category)
+    searchResults(country, category)
     // sessionStorage.setItem
 }
 
@@ -63,11 +68,10 @@ function generateRandomNumbers(count, min, max) {
 
 
 
-searchResults()
 
-function searchResults(language, country, category) {
+function searchResults(country, category) {
 
-    var url = `https://newsapi.org/v2/top-headlines?country=${country}&lang=${language}&apiKey=ca149d94ec5f47d48a80f0844ca39eba`
+    var url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=ca149d94ec5f47d48a80f0844ca39eba`
 
     var req = new Request(url);
 
@@ -142,33 +146,24 @@ function displayResults(z, i, title, linkname, fullLink, date) {
 
 
 
-const suggest = document.querySelectorAll(".sort")
-suggest.forEach(function (element) {
-    element.addEventListener('click', () => {
-
-        // for (let i = 2; i < 3; i++) {
-        //     sorts = ["Popularity", "Most Relevant", "Latest"]
-        //     suggest[i].style.backgroundColor = "#FBFFC0"
-        //     suggest[i].style.color = "#000"
-        //     location.reload()
-        // }
-
-
-
-        // element.style.backgroundColor = "#6B3F26"
-        // element.style.color = "#FBFFC0"
-        sessionStorage.setItem("sort", sort)
-    })
-
-
-})
 
 // checkFilter = setTimeout(() => {
 
 // }, 1);
-// filter = document.getElementById("filter")
-// filter.addEventListener('change', () => {
-//     sessionStorage.setItem('search_news', filter.value)
-//     location.reload()
-// })
+country = document.getElementById("countrySelect")
+category = document.getElementById("category")
 
+country.addEventListener('change', () => {
+    sessionStorage.setItem('country', country.value)
+    location.reload()
+})
+
+category.addEventListener('change', () => {
+    sessionStorage.setItem('category', category.value)
+    location.reload()
+})
+
+
+document.getElementById('logo').addEventListener('click', () => {
+    location.assign('../index.html')
+})

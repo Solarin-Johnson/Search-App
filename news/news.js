@@ -199,12 +199,6 @@ suggest.forEach(function (element) {
 
 })
 
-// checkFilter = setTimeout(() => {
-
-// }, 1);
-// filter = document.getElementById("filter")
-// filter.addEventListener('change', () => {
-//     sessionStorage.setItem('search_news', filter.value)
-//     location.reload()
-// })
-
+document.getElementById('logo').addEventListener('click', () => {
+    location.assign('../index.html')
+})
