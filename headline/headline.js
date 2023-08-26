@@ -6,18 +6,25 @@ autosize = setInterval(() => {
         document.getElementById("container").style.width = "500px"
     }
 }, 1);
+setDefault()
+function setDefault() {
+    lang = document.getElementById('languageSelect').value
+    cntry = document.getElementById('countrySelect').value
+    ctgry = document.getElementById('category').value
+
+    sessionStorage.setItem('lang', lang)
+    sessionStorage.setItem('country', cntry)
+    sessionStorage.setItem('category', ctgry)
+
+    language = sessionStorage.getItem('lang')
+    country = sessionStorage.getItem('country')
+    category = sessionStorage.getItem('category')
+
+    searchResults(lang, country, category)
+    // sessionStorage.setItem
+}
 
 
-
-document.getElementById("search_icon").addEventListener('click', () => {
-    country = sessionStorage.getItem("sort")
-    lang = sessionStorage.getItem("lang")
-    searchResults(searchq, lang, sort)
-    location.reload()
-})
-sort = sessionStorage.getItem("sort")
-lang = sessionStorage.getItem("lang")
-var headline = sessionStorage.getItem('headline')
 
 function truncateString(text, maxLength) {
     if (text.length <= maxLength) {
@@ -58,16 +65,9 @@ function generateRandomNumbers(count, min, max) {
 
 searchResults()
 
-function searchResults(lang) {
-    sort = sessionStorage.getItem("sort")
-    search_news = sessionStorage.getItem('search_news')
-    // if (search_news == 'headline') {
-    //     console.log("yes")
-    // }
+function searchResults(language, country, category) {
 
-    var search_news = sessionStorage.getItem('search_news')
-    var url = `https://newsapi.org/v2/top-headlines?country=NG&apiKey=ca149d94ec5f47d48a80f0844ca39eba`
-    console.log(url)
+    var url = `https://newsapi.org/v2/top-headlines?country=${country}&lang=${language}&apiKey=ca149d94ec5f47d48a80f0844ca39eba`
 
     var req = new Request(url);
 
@@ -142,7 +142,6 @@ function displayResults(z, i, title, linkname, fullLink, date) {
 
 
 
-sessionStorage.setItem("sort", sort)
 const suggest = document.querySelectorAll(".sort")
 suggest.forEach(function (element) {
     element.addEventListener('click', () => {
