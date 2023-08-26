@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News</title>
+    <!-- <link rel="stylesheet" href="../main.css"> -->
+    <link rel="stylesheet" href="image.css">
+    <link rel="stylesheet" href="../news/responsive.css">
+</head>
+<script src="../fa/all.js"></script>
+<script src="image.js" defer></script>
+
+<body>
+    <div id="container">
+        <div id="search_field">
+            <div id="logo">
+                <img src="../logo.png" alt="">
+            </div>
+            <div id="search_box">
+                <div id="search_input">
+                    <input type="search" name="" id="search_news">
+                </div>
+                <hr>
+                <div id="search_icon">
+                    <span class="fas fa-search"></span>
+                </div>
+            </div>
+        </div>
+        <div id="search_suggestions">
+            <div>
+                <select name="" id="filter">
+                    <option class="all" value="all">All</option>
+                    <option value="headline">Headline</option>
+                    <option value="bbc">BBC</option>
+                    <option value=""></option>
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="sort" id="popularity">Popularity</div>
+            <div class="sort" id="relevancy">Most Relevant</div>
+            <div class="sort" id="publishedAt">Latest</div>
+
+        </div>
+        <div id="search_results">
+
+        </div>
+        <div id="footer">
+
+        </div>
+    </div>
+</body>
+
+</html>
