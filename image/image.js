@@ -7,41 +7,29 @@ autosize = setInterval(() => {
     }
 }, 1);
 
-function sorts() {
-    for (i = 0; i < 3; i++) {
-        sorts = ["Popularity", "Most Relevant", "Latest"]
-        sortss = ["popularity", "relevancy", "publishedAt"]
-        sort = sessionStorage.getItem("sort")
-        const suggest = document.querySelectorAll(".sort")
-        if (sort == sortss[i]) {
-            suggest[i].style.backgroundColor = "#6B3F26"
-            suggest[i].style.color = "#FBFFC0"
-        }
+setDefault()
+function setDefault() {
+    cntry = document.getElementById('countrySelect').value
+    ctgry = document.getElementById('category').value
+
+    if (sessionStorage.getItem('country') == null || sessionStorage.getItem('category') == null || sessionStorage.getItem('lang') == '' || sessionStorage.getItem('category') == '') {
+        sessionStorage.setItem('country', cntry)
+        cntry = sessionStorage.getItem('country')
+        sessionStorage.setItem('category', ctgry)
+        ctgr = sessionStorage.getItem('ctgry')
+    } else {
+        document.getElementById('countrySelect').value = sessionStorage.getItem('country')
+        document.getElementById('category').value = sessionStorage.getItem('category')
     }
+
+    country = sessionStorage.getItem('country')
+    category = sessionStorage.getItem('category')
+
+    searchResults(country, category)
+    // sessionStorage.setItem
 }
 
-sorts()
 
-
-var search_news = sessionStorage.getItem('search_news')
-if (sessionStorage.getItem("search_news") == null || sessionStorage.getItem("search_news") == "") {
-    window.location.assign("../index.html")
-}
-
-document.getElementById("search_icon").addEventListener('click', () => {
-    sessionStorage.setItem('search_news', document.getElementById('search_news').value)
-    searchq = search_news.replace(' ', '+');
-    sort = sessionStorage.getItem("sort")
-    lang = sessionStorage.getItem("lang")
-    searchResults(searchq, lang, sort)
-    location.reload()
-})
-sort = sessionStorage.getItem("sort")
-lang = sessionStorage.getItem("lang")
-var search_news = sessionStorage.getItem('search_news')
-document.getElementById("search_news").value = search_news
-searchq = search_news.replace(' ', '+');
-searchResults(searchq, lang, sort)
 
 function truncateString(text, maxLength) {
     if (text.length <= maxLength) {
@@ -51,6 +39,13 @@ function truncateString(text, maxLength) {
     }
 }
 
+function truncateStringAlt(text, maxLength) {
+    if (text.length <= maxLength) {
+        return text;
+    } else {
+        return text.substring(0, maxLength) + "";
+    }
+}
 
 
 
@@ -74,14 +69,10 @@ function generateRandomNumbers(count, min, max) {
 
 
 
+function searchResults(country, category) {
 
-function searchResults(searchq, lang, sort) {
-    sort = sessionStorage.getItem("sort")
-    search_news = sessionStorage.getItem('search_news')
-    // if (search_news == 'headline') {
-    //     console.log("yes")
-    // }
-    var url = `https://newsapi.org/v2/everything?q=${searchq}&language=en&sortBy=${sort}&apiKey=922ce45ff66f407a9f3ff524cd6e75f5`
+    var url = `https://pixabay.com/api/?key=38938670-26eca45c3b97b83da12d458e5&q=${imageq}&image_type=photo&editors_choice=${choice}&category=${category}`
+
     var req = new Request(url);
 
     fetch(req)
@@ -101,17 +92,15 @@ function searchResults(searchq, lang, sort) {
                 var x = randomNumbers[i]
 
                 try {
-                    description = truncateString(data.articles[x].description, 300)
-                    title = truncateString(data.articles[x].title, 25)
-                    img = data.articles[x].urlToImage
+                    title = truncateString(data.articles[x].title, 70)
                     linkname = truncateString(data.articles[x].source.name, 20)
                     fullLink = truncateString(data.articles[x].url, 30)
-                    length = data.articles.length - 5
+                    date = truncateStringAlt(data.articles[x].publishedAt, 10)
                 } catch (error) {
                     console.error("Js caught :" + error.message)
                     z = z - 1
                 }
-                displayResults(z, i, title, description, img, linkname, fullLink)
+                displayResults(z, i, title, linkname, fullLink, date)
             }
         })
 }
@@ -119,85 +108,61 @@ function searchResults(searchq, lang, sort) {
 
 
 
-function displayResults(z, i, title, description, img, linkname, fullLink) {
+function displayResults(z, i, title, linkname, fullLink, date) {
 
     searchResultsDiv = document.getElementById("search_results")
-    searchResultsDiv.style.gridTemplateRows = `Repeat(${z}, 130px)`
-    document.getElementById("container").style.height = `${((z + 1) * 165) + 70}px`
-    var resultDiv = document.createElement("div");
-    resultDiv.className = "result";
-    searchResultsDiv.appendChild(resultDiv);
+    searchResultsDiv.style.gridTemplateRows = `Repeat(${z}, 120px)`
+    document.getElementById("container").style.height = `${((z + 1) * 155) + 70}px`
+    const resultsDiv = document.createElement("div");
+    resultsDiv.id = "results";
 
-    var linkDiv = document.createElement("div");
-    linkDiv.className = "link";
-    resultDiv.appendChild(linkDiv);
+    const titleDiv = document.createElement("div");
+    titleDiv.classList.add("title");
+    titleDiv.textContent = title
 
-    var headDiv = document.createElement("div");
-    headDiv.className = "head";
-    linkDiv.appendChild(headDiv);
+    const footDiv = document.createElement("div");
+    footDiv.classList.add("foot");
 
-    var imgDiv = document.createElement("div");
-    imgDiv.className = "img";
-    headDiv.appendChild(imgDiv);
-    imgDiv.style.backgroundImage = `url(${img})`
+    const nameDiv = document.createElement("div");
+    nameDiv.classList.add("name");
+    nameDiv.textContent = linkname
 
-    var nameDiv = document.createElement("div");
-    nameDiv.className = "name";
-    nameDiv.textContent = linkname;
-    headDiv.appendChild(nameDiv);
+    const dateDiv = document.createElement("div");
+    dateDiv.classList.add("date");
+    dateDiv.textContent = date
 
-    var fullLinkDiv = document.createElement("div");
-    fullLinkDiv.className = "full_link";
-    fullLinkDiv.textContent = fullLink;
-    headDiv.appendChild(fullLinkDiv);
+    footDiv.appendChild(nameDiv);
+    footDiv.appendChild(dateDiv);
 
-    var titleDiv = document.createElement("div");
-    titleDiv.className = "title";
-    titleDiv.textContent = title;
-    linkDiv.appendChild(titleDiv);
+    resultsDiv.appendChild(titleDiv);
+    resultsDiv.appendChild(footDiv);
 
-    var descriptionDiv = document.createElement("div");
-    descriptionDiv.className = "description";
-    descriptionDiv.textContent = description;
-    resultDiv.appendChild(descriptionDiv);
+    searchResultsDiv.appendChild(resultsDiv);
 
-    searchResultsDiv.appendChild(resultDiv);
-    document.querySelectorAll(".link")[i].addEventListener('click', () => {
+    document.querySelectorAll("#results")[i].addEventListener('click', () => {
         location.assign(fullLink)
     })
 }
 
 
 
-sessionStorage.setItem("sort", sort)
-const suggest = document.querySelectorAll(".sort")
-suggest.forEach(function (element) {
-    element.addEventListener('click', () => {
 
-        for (let i = 0; i < 3; i++) {
-            sorts = ["Popularity", "Most Relevant", "Latest"]
-            suggest[i].style.backgroundColor = "#FBFFC0"
-            suggest[i].style.color = "#000"
-            location.reload()
-        }
-        if (element.textContent == sorts[0]) {
-            sort = "popularity"
-        }
-        if (element.textContent == sorts[1]) {
-            sort = "relevancy"
-        }
-        if (element.textContent == sorts[2]) {
-            sort = "publishedAt"
-        }
+// checkFilter = setTimeout(() => {
 
+// }, 1);
+country = document.getElementById("countrySelect")
+category = document.getElementById("category")
 
-        element.style.backgroundColor = "#6B3F26"
-        element.style.color = "#FBFFC0"
-        sessionStorage.setItem("sort", sort)
-    })
-
-
+country.addEventListener('change', () => {
+    sessionStorage.setItem('country', country.value)
+    location.reload()
 })
+
+category.addEventListener('change', () => {
+    sessionStorage.setItem('category', category.value)
+    location.reload()
+})
+
 
 document.getElementById('logo').addEventListener('click', () => {
     location.assign('../index.html')

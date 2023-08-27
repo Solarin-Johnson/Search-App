@@ -8,6 +8,7 @@
     <!-- <link rel="stylesheet" href="../main.css"> -->
     <link rel="stylesheet" href="image.css">
     <link rel="stylesheet" href="../news/responsive.css">
+    <link rel="stylesheet" href="../news/news.css">
 </head>
 <script src="../fa/all.js"></script>
 <script src="image.js" defer></script>
@@ -30,21 +31,38 @@
         </div>
         <div id="search_suggestions">
             <div>
-                <select name="" id="filter">
-                    <option class="all" value="all">All</option>
-                    <option value="headline">Headline</option>
-                    <option value="bbc">BBC</option>
-                    <option value=""></option>
-                    <option value=""></option>
+                <select id="image_category">
+                    <option value="nature">Nature</option>
+                    <option value="backgrounds">Backgrounds</option>
+                    <option value="fashion">Fashion</option>
+                    <option value="science">Science</option>
+                    <option value="education">Education</option>
+                    <option value="feelings">Feelings</option>
+                    <option value="health">Health</option>
+                    <option value="people">People</option>
+                    <option value="religion">Religion</option>
+                    <option value="places">Places</option>
+                    <option value="animals">Animals</option>
+                    <option value="industry">Industry</option>
+                    <option value="computer">Computer</option>
+                    <option value="food">Food</option>
+                    <option value="sports">Sports</option>
+                    <option value="transportation">Transportation</option>
+                    <option value="travel">Travel</option>
+                    <option value="buildings">Buildings</option>
+                    <option value="business">Business</option>
+                    <option value="music">Music</option>
                 </select>
+
             </div>
-            <div class="sort" id="popularity">Popularity</div>
-            <div class="sort" id="relevancy">Most Relevant</div>
-            <div class="sort" id="publishedAt">Latest</div>
+            <div class="sort" id="editorsChoice">Editors Choice</div>
+            <div class="sort" id="safeSearch">Safe Search</div>
 
         </div>
-        <div id="search_results">
-
+        <div id="image_results">
+            <div class="bug" id="images">
+                <div id="download">Download</div>
+            </div>
         </div>
         <div id="footer">
 
