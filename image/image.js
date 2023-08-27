@@ -12,8 +12,13 @@ function setDefault() {
     cntry = document.getElementById('countrySelect').value
     ctgry = document.getElementById('category').value
 
-    if (sessionStorage.getItem('country') == null || sessionStorage.getItem('category') == null || sessionStorage.getItem('lang') == '' || sessionStorage.getItem('category') == '') {
+    if (sessionStorage.getItem('imageq') == null || sessionStorage.getItem('imageq') == null) {
         sessionStorage.setItem('country', cntry)
+    }
+    if (sessionStorage.getItem('choice') == null || sessionStorage.getItem('choice') == null) {
+
+    }
+    if (sessionStorage.getItem('safe') == null || sessionStorage.getItem('safe') == null) {
         cntry = sessionStorage.getItem('country')
         sessionStorage.setItem('category', ctgry)
         ctgr = sessionStorage.getItem('ctgry')
@@ -110,35 +115,22 @@ function searchResults(country, category) {
 
 function displayResults(z, i, title, linkname, fullLink, date) {
 
-    searchResultsDiv = document.getElementById("search_results")
-    searchResultsDiv.style.gridTemplateRows = `Repeat(${z}, 120px)`
+    imageResultsDiv = document.getElementById("image_results")
+    imageResultsDiv.style.gridTemplateRows = `Repeat(${z}, 120px)`
     document.getElementById("container").style.height = `${((z + 1) * 155) + 70}px`
-    const resultsDiv = document.createElement("div");
-    resultsDiv.id = "results";
 
-    const titleDiv = document.createElement("div");
-    titleDiv.classList.add("title");
-    titleDiv.textContent = title
+    var imagesDiv = document.createElement("div");
+    imagesDiv.id = "images";
 
-    const footDiv = document.createElement("div");
-    footDiv.classList.add("foot");
+    var downloadDiv = document.createElement("div");
+    downloadDiv.id = "download";
+    downloadDiv.textContent = "Download";
 
-    const nameDiv = document.createElement("div");
-    nameDiv.classList.add("name");
-    nameDiv.textContent = linkname
+    imagesDiv.appendChild(downloadDiv);
 
-    const dateDiv = document.createElement("div");
-    dateDiv.classList.add("date");
-    dateDiv.textContent = date
+    imageResultsDiv.appendChild(imagesDiv);
 
-    footDiv.appendChild(nameDiv);
-    footDiv.appendChild(dateDiv);
-
-    resultsDiv.appendChild(titleDiv);
-    resultsDiv.appendChild(footDiv);
-
-    searchResultsDiv.appendChild(resultsDiv);
-
+    document.body.appendChild(imageResultsDiv);
     document.querySelectorAll("#results")[i].addEventListener('click', () => {
         location.assign(fullLink)
     })

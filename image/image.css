@@ -31,12 +31,20 @@
  }
 
  #download {
+     height: 30px;
      display: grid;
      border-bottom-left-radius: 10px;
      border-bottom-right-radius: 10px;
      background-color: #6B3F26;
      font-family: cursive;
      text-align: center;
+     align-content: center;
      align-self: last baseline;
      justify-content: center;
+ }
+
+ #download:hover {
+     background-color: #FBFFC0;
+     color: #6B3F26;
+     font-weight: bold;
  }
