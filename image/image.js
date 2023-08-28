@@ -10,17 +10,19 @@ autosize = setInterval(() => {
 setDefault()
 function setDefault() {
 
-    if (sessionStorage.getItem('choice') == null || sessionStorage.getItem('choice') == "") {
-        sessionStorage.setItem('choice', false)
-        var choice = sessionStorage.getItem('choice')
+    if (sessionStorage.getItem('editors_choice') == null || sessionStorage.getItem('editors_choice') == "") {
+        sessionStorage.setItem('editors_choice', 'false')
+        var choice = sessionStorage.getItem('editors_choice')
     }
-    if (sessionStorage.getItem('safe') == null || sessionStorage.getItem('safe') == "") {
-        sessionStorage.setItem('safe', false)
-        var safe = sessionStorage.getItem('safe')
+    if (sessionStorage.getItem('safe_search') == null || sessionStorage.getItem('safe_search') == "") {
+        sessionStorage.setItem('safe_search', false)
+        var safe = sessionStorage.getItem('safe_search')
     }
     if (sessionStorage.getItem('imageq') == null) {
         sessionStorage.setItem('imageq', '')
     }
+    var safe = sessionStorage.getItem('safe_search')
+    var choice = sessionStorage.getItem('editors_choice')
 
     searchq = document.getElementById('search_image')
     searchq.value = sessionStorage.getItem('imageq')
@@ -79,7 +81,7 @@ function generateRandomNumbers(count, min, max) {
 
 
 function searchResults(imageq, safe, choice, category) {
-    var url = `https://pixabay.com/api/?key=38938670-26eca45c3b97b83da12d458e5&q=${imageq}&image_type=photo&editors_choice=${choice}&category=${category}`
+    var url = `https://pixabay.com/api/?key=38938670-26eca45c3b97b83da12d458e5&q=${imageq}&image_type=photo&editors_choice=${choice}&category=${category}&safesearch=${safe}`
     console.log(url)
 
     var req = new Request(url);
@@ -169,36 +171,32 @@ document.getElementById('logo').addEventListener('click', () => {
     location.assign('../index.html')
 })
 
-if (sessionStorage.getItem("imageq") == null || sessionStorage.getItem("imageq") == "") {
-    window.location.assign("../index.html")
-}
-
-sessionStorage.setItem("sort", sort)
+// if (sessionStorage.getItem("imageq") == null || sessionStorage.getItem("imageq") == "") {
+//     window.location.assign("../index.html")
+// }
 const suggest = document.querySelectorAll(".sort")
 suggest.forEach(function (element) {
-    element.addEventListener('click', () => {
-
-        // for (let i = 0; i < 3; i++) {
-        //     sorts = ["Popularity", "Most Relevant", "Latest"]
-        //     suggest[i].style.backgroundColor = "#FBFFC0"
-        //     suggest[i].style.color = "#000"
-        //     location.reload()
-        // }
-        // if (element.textContent == sorts[0]) {
-        //     sort = "popularity"
-        // }
-        // if (element.textContent == sorts[1]) {
-        //     sort = "relevancy"
-        // }
-        // if (element.textContent == sorts[2]) {
-        //     sort = "publishedAt"
-        // }
-
-
+    item = element.textContent.toLowerCase().replace(' ', '_')
+    if (sessionStorage.getItem(item) == 'true') {
         element.style.backgroundColor = "#6B3F26"
         element.style.color = "#FBFFC0"
-        sessionStorage.setItem("sort", sort)
-    })
+        sessionStorage.setItem(item, true)
+    }
+})
+suggest.forEach(function (element) {
+    element.addEventListener('click', () => {
+        item = element.textContent.toLowerCase().replace(' ', '_')
+        if (sessionStorage.getItem(item) == null || sessionStorage.getItem(item) == '' || sessionStorage.getItem(item) == 'true') {
+            element.style.backgroundColor = "transparent"
+            element.style.color = "#6B3F26"
+            sessionStorage.setItem(item, "false")
+        } else {
+            element.style.backgroundColor = "#6B3F26"
+            element.style.color = "#FBFFC0"
+            sessionStorage.setItem(item, 'true')
+        }
 
+        location.reload()
+    })
 
 })
