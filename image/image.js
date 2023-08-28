@@ -9,28 +9,24 @@ autosize = setInterval(() => {
 
 setDefault()
 function setDefault() {
-    cntry = document.getElementById('countrySelect').value
-    ctgry = document.getElementById('category').value
 
-    if (sessionStorage.getItem('imageq') == null || sessionStorage.getItem('imageq') == null) {
-        sessionStorage.setItem('country', cntry)
+    if (sessionStorage.getItem('choice') == null || sessionStorage.getItem('choice') == "") {
+        sessionStorage.setItem('choice', false)
+        var choice = sessionStorage.getItem('choice')
     }
-    if (sessionStorage.getItem('choice') == null || sessionStorage.getItem('choice') == null) {
+    if (sessionStorage.getItem('safe') == null || sessionStorage.getItem('safe') == "") {
+        sessionStorage.setItem('safe', false)
+        var safe = sessionStorage.getItem('safe')
 
     }
-    if (sessionStorage.getItem('safe') == null || sessionStorage.getItem('safe') == null) {
-        cntry = sessionStorage.getItem('country')
-        sessionStorage.setItem('category', ctgry)
-        ctgr = sessionStorage.getItem('ctgry')
-    } else {
-        document.getElementById('countrySelect').value = sessionStorage.getItem('country')
-        document.getElementById('category').value = sessionStorage.getItem('category')
-    }
+    img = sessionStorage.setItem('imageq', 'Blue-Apple')
+    imageq = sessionStorage.getItem('imageq')
+    ctgry = document.getElementById('image_category')
+    sessionStorage.setItem('image_category', 'nature')
+    ctgry.value = sessionStorage.getItem('image_category')
+    category = sessionStorage.getItem('image_category')
 
-    country = sessionStorage.getItem('country')
-    category = sessionStorage.getItem('category')
-
-    searchResults(country, category)
+    searchResults(safe, choice, category)
     // sessionStorage.setItem
 }
 
@@ -74,7 +70,7 @@ function generateRandomNumbers(count, min, max) {
 
 
 
-function searchResults(country, category) {
+function searchResults(safe, choice, category) {
 
     var url = `https://pixabay.com/api/?key=38938670-26eca45c3b97b83da12d458e5&q=${imageq}&image_type=photo&editors_choice=${choice}&category=${category}`
 
@@ -83,29 +79,26 @@ function searchResults(country, category) {
     fetch(req)
         .then(response => response.json())
         .then(data => {
-            if (data.articles.length > 20) {
-                z = 20
+            if (data.hits.length > 20) {
+                var z = 20
                 var randomNumbers = generateRandomNumbers(z, 0, z);
             } else {
-                z = data.articles.length
+                var z = data.hits.length
                 var randomNumbers = generateRandomNumbers(z, 0, z - 1);
             }
 
 
 
             for (i = 0; i < z; i++) {
-                var x = randomNumbers[i]
-
                 try {
-                    title = truncateString(data.articles[x].title, 70)
-                    linkname = truncateString(data.articles[x].source.name, 20)
-                    fullLink = truncateString(data.articles[x].url, 30)
-                    date = truncateStringAlt(data.articles[x].publishedAt, 10)
+                    // title = truncateString(data.hits[x].title, 70)
+                    img = data.hits[i].previewURL
+                    console.log(i)
                 } catch (error) {
                     console.error("Js caught :" + error.message)
                     z = z - 1
                 }
-                displayResults(z, i, title, linkname, fullLink, date)
+                displayResults(z, i, img)
             }
         })
 }
@@ -113,14 +106,15 @@ function searchResults(country, category) {
 
 
 
-function displayResults(z, i, title, linkname, fullLink, date) {
+function displayResults(z, i, img) {
 
     imageResultsDiv = document.getElementById("image_results")
-    imageResultsDiv.style.gridTemplateRows = `Repeat(${z}, 120px)`
-    document.getElementById("container").style.height = `${((z + 1) * 155) + 70}px`
+    imageResultsDiv.style.gridTemplateRows = `Repeat(${Math.round(z / 3)}, 150px)`
+    document.getElementById("container").style.height = `${((Math.round(z / 3)) * 200) + 70}px`
 
     var imagesDiv = document.createElement("div");
     imagesDiv.id = "images";
+    imagesDiv.style.backgroundImage = `url(${img})`
 
     var downloadDiv = document.createElement("div");
     downloadDiv.id = "download";
@@ -130,9 +124,9 @@ function displayResults(z, i, title, linkname, fullLink, date) {
 
     imageResultsDiv.appendChild(imagesDiv);
 
-    document.body.appendChild(imageResultsDiv);
-    document.querySelectorAll("#results")[i].addEventListener('click', () => {
-        location.assign(fullLink)
+    imageResultsDiv.appendChild(imagesDiv);
+    document.querySelectorAll("#images")[i].addEventListener('click', () => {
+        // location.assign(fullLink)
     })
 }
 
@@ -142,16 +136,12 @@ function displayResults(z, i, title, linkname, fullLink, date) {
 // checkFilter = setTimeout(() => {
 
 // }, 1);
-country = document.getElementById("countrySelect")
-category = document.getElementById("category")
+category = document.getElementById("image_category")
 
-country.addEventListener('change', () => {
-    sessionStorage.setItem('country', country.value)
-    location.reload()
-})
+
 
 category.addEventListener('change', () => {
-    sessionStorage.setItem('category', category.value)
+    sessionStorage.setItem('image_category', category.value)
     location.reload()
 })
 
