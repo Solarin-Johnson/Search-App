@@ -19,16 +19,22 @@ function setDefault() {
         var safe = sessionStorage.getItem('safe')
 
     }
-    img = sessionStorage.setItem('imageq', 'Blue-Apple')
-    imageq = sessionStorage.getItem('imageq')
+
+    searchq = document.getElementById('search_image')
+    searchq.value = sessionStorage.getItem('imageq')
+    imageq = sessionStorage.getItem('imageq').replace(/\s+/g, '-')
     ctgry = document.getElementById('image_category')
-    sessionStorage.setItem('image_category', 'nature')
     ctgry.value = sessionStorage.getItem('image_category')
     category = sessionStorage.getItem('image_category')
 
-    searchResults(safe, choice, category)
+    searchResults(imageq, safe, choice, category)
     // sessionStorage.setItem
 }
+document.getElementById('search_icon').addEventListener('click', () => {
+    searchq = document.getElementById('search_image')
+    sessionStorage.setItem('imageq', searchq.value)
+    location.reload()
+})
 
 
 
@@ -70,9 +76,9 @@ function generateRandomNumbers(count, min, max) {
 
 
 
-function searchResults(safe, choice, category) {
-
+function searchResults(imageq, safe, choice, category) {
     var url = `https://pixabay.com/api/?key=38938670-26eca45c3b97b83da12d458e5&q=${imageq}&image_type=photo&editors_choice=${choice}&category=${category}`
+    console.log(url)
 
     var req = new Request(url);
 
@@ -92,13 +98,14 @@ function searchResults(safe, choice, category) {
             for (i = 0; i < z; i++) {
                 try {
                     // title = truncateString(data.hits[x].title, 70)
-                    img = data.hits[i].previewURL
+                    img = data.hits[i].webformatURL
+                    full = data.hits[i].largeImageURL
                     console.log(i)
                 } catch (error) {
                     console.error("Js caught :" + error.message)
                     z = z - 1
                 }
-                displayResults(z, i, img)
+                displayResults(z, i, full, img)
             }
         })
 }
@@ -106,11 +113,11 @@ function searchResults(safe, choice, category) {
 
 
 
-function displayResults(z, i, img) {
+function displayResults(z, i, full, img) {
 
     imageResultsDiv = document.getElementById("image_results")
-    imageResultsDiv.style.gridTemplateRows = `Repeat(${Math.round(z / 3)}, 150px)`
-    document.getElementById("container").style.height = `${((Math.round(z / 3)) * 200) + 70}px`
+    imageResultsDiv.style.gridTemplateRows = `Repeat(${Math.ceil(z / 3)}, 150px)`
+    document.getElementById("container").style.height = `${((Math.ceil(z / 3)) * 200) + 100}px`
 
     var imagesDiv = document.createElement("div");
     imagesDiv.id = "images";
@@ -118,11 +125,21 @@ function displayResults(z, i, img) {
 
     var downloadDiv = document.createElement("div");
     downloadDiv.id = "download";
-    downloadDiv.textContent = "Download";
 
+    const downloadSpan = document.createElement("span");
+    downloadSpan.className = "fas fa-expand";
+    downloadDiv.addEventListener('click', () => {
+        location.assign(full)
+        // console.log(img)
+        // // Set the image URL and suggested filename  // Replace with your image URL
+        // const suggestedFilename = 'bitch.jpg';  // Replace with your suggested filename
+        // // downloadDiv.href = `https://pixabay.com/get/g82e5a55d20e1fdaab9f3bbce70ef6c0f0da6afdd1bab7a87fd006bfe498332b1fc93925050fb81733f9b46c56a7751c47ae8dae02f027bd989ff45c4ccd4d3d7_1280.jpg`;
+        // downloadDiv.download = suggestedFilename;
+    })
+
+    downloadDiv.appendChild(downloadSpan);
     imagesDiv.appendChild(downloadDiv);
 
-    imageResultsDiv.appendChild(imagesDiv);
 
     imageResultsDiv.appendChild(imagesDiv);
     document.querySelectorAll("#images")[i].addEventListener('click', () => {
@@ -148,4 +165,38 @@ category.addEventListener('change', () => {
 
 document.getElementById('logo').addEventListener('click', () => {
     location.assign('../index.html')
+})
+
+if (sessionStorage.getItem("imageq") == null || sessionStorage.getItem("imageq") == "") {
+    window.location.assign("../index.html")
+}
+
+sessionStorage.setItem("sort", sort)
+const suggest = document.querySelectorAll(".sort")
+suggest.forEach(function (element) {
+    element.addEventListener('click', () => {
+
+        for (let i = 0; i < 3; i++) {
+            sorts = ["Popularity", "Most Relevant", "Latest"]
+            suggest[i].style.backgroundColor = "#FBFFC0"
+            suggest[i].style.color = "#000"
+            location.reload()
+        }
+        if (element.textContent == sorts[0]) {
+            sort = "popularity"
+        }
+        if (element.textContent == sorts[1]) {
+            sort = "relevancy"
+        }
+        if (element.textContent == sorts[2]) {
+            sort = "publishedAt"
+        }
+
+
+        element.style.backgroundColor = "#6B3F26"
+        element.style.color = "#FBFFC0"
+        sessionStorage.setItem("sort", sort)
+    })
+
+
 })

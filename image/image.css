@@ -26,7 +26,6 @@
 
  #images:hover {
      box-shadow: 0 0 5px 2px #000;
-     cursor: pointer;
  }
 
  #images div {
@@ -38,16 +37,20 @@
      display: grid;
      border-bottom-left-radius: 10px;
      border-bottom-right-radius: 10px;
-     background-color: #6B3F26;
-     font-family: cursive;
+     background: linear-gradient(to right, #000000b2, #0000006d, transparent);
      text-align: center;
      align-content: center;
      align-self: last baseline;
-     justify-content: center;
+     justify-content: start;
+     width: 40px;
+     cursor: pointer;
  }
 
- #download:hover {
-     background-color: #FBFFC0;
-     color: #6B3F26;
-     font-weight: bold;
+ #download :first-child {
+     margin-left: 10px;
+     cursor: pointer;
+     font-weight: normal !important;
+     font-size: 15px;
+     /* color: #6B3F26;
+     font-weight: bold; */
  }

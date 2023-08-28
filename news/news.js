@@ -30,7 +30,7 @@ if (sessionStorage.getItem("search_news") == null || sessionStorage.getItem("sea
 
 document.getElementById("search_icon").addEventListener('click', () => {
     sessionStorage.setItem('search_news', document.getElementById('search_news').value)
-    searchq = search_news.replace(' ', '+');
+    searchq = search_news.replace(/\s+/g, '+');
     sort = sessionStorage.getItem("sort")
     lang = sessionStorage.getItem("lang")
     searchResults(searchq, lang, sort)
@@ -81,6 +81,7 @@ function searchResults(searchq, lang, sort) {
     // if (search_news == 'headline') {
     //     console.log("yes")
     // }
+    console.log(searchq)
     var url = `https://newsapi.org/v2/everything?q=${searchq}&language=en&sortBy=${sort}&apiKey=922ce45ff66f407a9f3ff524cd6e75f5`
     var req = new Request(url);
 
