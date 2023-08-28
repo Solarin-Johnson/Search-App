@@ -84,7 +84,6 @@ body {
     grid-gap: 35px;
     grid-template-columns: 450px;
     justify-self: center;
-    background-color: #FBFFC0;
 }
 
 
@@ -110,7 +109,7 @@ body {
 }
 
 select {
-    background-color: #FBFFC0;
+    background-color: transparent;
     outline: none;
     border: none;
     font-size: 16px;
@@ -124,6 +123,7 @@ select {
 }
 
 #search_suggestions div {
+    color: #6B3F26;
     height: 34px;
     border-radius: 8px;
     border: none;
@@ -131,7 +131,6 @@ select {
     font-weight: bold;
     text-align: center;
     font-size: 16px;
-    background-color: #FBFFC0;
     cursor: pointer;
     justify-content: center;
     border: 2px solid #6B3F26;

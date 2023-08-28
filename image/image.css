@@ -1,56 +1,59 @@
- #container {
-     background-color: #FBFFC0 !important;
- }
-
- #search_suggestions {
-     grid-template-columns: repeat(3, 1fr) !important;
- }
-
- #image_results {
-     display: grid;
-     grid-template-rows: 160px;
-     grid-template-columns: repeat(3, 1fr);
-     grid-gap: 20px;
- }
+#container {
+    background-color: #eaebdd !important;
+}
 
 
- #images {
-     background-color: #6B3F26 !important;
-     background-repeat: no-repeat;
-     background-position: center;
-     background-size: cover;
-     display: grid;
-     grid-template-rows: 1fr;
-     border-radius: 10px;
- }
 
- #images:hover {
-     box-shadow: 0 0 5px 2px #000;
- }
+#search_suggestions {
 
- #images div {
-     color: #FBFFC0;
- }
+    grid-template-columns: repeat(3, 1fr) !important;
+}
 
- #download {
-     height: 30px;
-     display: grid;
-     border-bottom-left-radius: 10px;
-     border-bottom-right-radius: 10px;
-     background: linear-gradient(to right, #000000b2, #0000006d, transparent);
-     text-align: center;
-     align-content: center;
-     align-self: last baseline;
-     justify-content: start;
-     width: 40px;
-     cursor: pointer;
- }
+#image_results {
+    display: grid;
+    grid-template-rows: 160px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+}
 
- #download :first-child {
-     margin-left: 10px;
-     cursor: pointer;
-     font-weight: normal !important;
-     font-size: 15px;
-     /* color: #6B3F26;
+
+#images {
+    background-color: #6B3F26 !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: grid;
+    grid-template-rows: 1fr;
+    border-radius: 10px;
+}
+
+#images:hover {
+    box-shadow: 0 0 5px 2px #000;
+}
+
+#images div {
+    color: #FBFFC0;
+}
+
+#download {
+    height: 30px;
+    display: grid;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background: linear-gradient(to right, #000000b2, #0000006d, transparent);
+    text-align: center;
+    align-content: center;
+    align-self: last baseline;
+    justify-content: start;
+    width: 40px;
+    cursor: pointer;
+}
+
+#download :first-child {
+    margin-left: 10px;
+    cursor: pointer;
+    font-weight: normal !important;
+    font-size: 15px;
+    /* color: #6B3F26;
      font-weight: bold; */
- }
+}

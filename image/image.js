@@ -17,7 +17,9 @@ function setDefault() {
     if (sessionStorage.getItem('safe') == null || sessionStorage.getItem('safe') == "") {
         sessionStorage.setItem('safe', false)
         var safe = sessionStorage.getItem('safe')
-
+    }
+    if (sessionStorage.getItem('imageq') == null) {
+        sessionStorage.setItem('imageq', '')
     }
 
     searchq = document.getElementById('search_image')
@@ -176,21 +178,21 @@ const suggest = document.querySelectorAll(".sort")
 suggest.forEach(function (element) {
     element.addEventListener('click', () => {
 
-        for (let i = 0; i < 3; i++) {
-            sorts = ["Popularity", "Most Relevant", "Latest"]
-            suggest[i].style.backgroundColor = "#FBFFC0"
-            suggest[i].style.color = "#000"
-            location.reload()
-        }
-        if (element.textContent == sorts[0]) {
-            sort = "popularity"
-        }
-        if (element.textContent == sorts[1]) {
-            sort = "relevancy"
-        }
-        if (element.textContent == sorts[2]) {
-            sort = "publishedAt"
-        }
+        // for (let i = 0; i < 3; i++) {
+        //     sorts = ["Popularity", "Most Relevant", "Latest"]
+        //     suggest[i].style.backgroundColor = "#FBFFC0"
+        //     suggest[i].style.color = "#000"
+        //     location.reload()
+        // }
+        // if (element.textContent == sorts[0]) {
+        //     sort = "popularity"
+        // }
+        // if (element.textContent == sorts[1]) {
+        //     sort = "relevancy"
+        // }
+        // if (element.textContent == sorts[2]) {
+        //     sort = "publishedAt"
+        // }
 
 
         element.style.backgroundColor = "#6B3F26"
