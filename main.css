@@ -74,7 +74,11 @@ option {
 }
 
 #logo {
-    background-color: #6B3F26;
+    /* background-color: #6B3F26; */
+    background-image: url('logo.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     width: 100px;
     height: 100px;
     display: grid;
@@ -172,4 +176,8 @@ option {
 
 #footer {
     background-color: #FBFFC0;
+}
+
+#logo {
+    background-image: url('logo.png');
 }

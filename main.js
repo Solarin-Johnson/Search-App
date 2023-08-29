@@ -41,3 +41,7 @@ document.getElementById("countriesDropdown").addEventListener('focus', () => {
 document.querySelectorAll(".headlines")[0].addEventListener('click', () => {
     location.assign('headline/headline.html')
 })
+
+function image() {
+    location.assign('image/image.html')
+}

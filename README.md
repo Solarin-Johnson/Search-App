@@ -1,2 +1,3 @@
-# Solarin-Johnson.github.io
-# Cloned https://github.com/Solarin-Johnson/Search-App
+# Creating a Search News and Image App 
+# News API ==> 'newsapi.org'
+# Images API 'pixabay.com'
